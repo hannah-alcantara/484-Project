@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { useState, useEffect } from "react";
 import { exactProp } from '@mui/utils';
+import Modal from '@mui/material/Modal';
 import { ConstructionOutlined, GamesOutlined, SecurityUpdateRounded } from '@mui/icons-material';
 
 //Tiles
@@ -202,9 +203,11 @@ function turnHandler() {
   //setHighScore(Math.max(score, highScore));
   if (gameWon()) {
     console.log("WON");
+    changeWinScreen(true)
     return;
   } else if (gameLost()) {
     console.log("LOST");
+    changeLoseScreen(true)
     return;
   } else {
     generateRandom();
@@ -245,6 +248,13 @@ useEffect(() => {
   console.log(tempScore)
 },[board])
 
+const [winScreen, changeWinScreen] = useState(false);
+const [loseScreen, changeLoseScreen] = useState(false);
+
+const handleClose = () => {
+  changeWinScreen(false)
+  changeLoseScreen(false)
+}
   return (
     <div className='container'>
       <div className='heading'>
@@ -329,6 +339,12 @@ useEffect(() => {
       <div>
         <p><b>How to Play:</b> Use your arrow keys to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach <b>2048!</b></p>
       </div>
+      <Modal aria-labelledby="modal-title" aria-describedby="modal-description" open = {winScreen} onClose={handleClose}>
+        <h2 id="modal-title">You Won!</h2>
+      </Modal>
+      <Modal aria-labelledby="modal-title" aria-describedby="modal-description" open = {loseScreen} onClose={handleClose}>
+        <h2 id="modal-title">You Lost!</h2>
+      </Modal>
     </div>
   );
 };
