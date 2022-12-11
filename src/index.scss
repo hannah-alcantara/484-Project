@@ -1,0 +1,112 @@
+$color_1: #776e65;
+$color_2: white;
+$color_3: #eee4da;
+$font-family_1: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$font-family_2: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+$background-color_1: #bbada0;
+
+
+@mixin fancy-border {
+  position: relative;
+	display: block;
+	background: #bbada0;
+	padding: 15px 25px;
+	font-size: 25px;
+	height: 25px;
+	line-height: 43px;
+	font-weight: bold;
+	border-radius: 3px;
+	color: $color_2;
+	margin-top: 8px;
+
+}
+  
+body {
+	color: $color_1;
+	margin: 0;
+	background: #faf8ef;
+	font-family: $font-family_1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+code {
+	font-family: $font-family_2;
+}
+h1 {
+	font-size: 80px;
+	font-weight: bold;
+	margin: 0;
+	display: block;
+	float: left;
+}
+.container {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 80px;
+}
+.heading {
+	display: block;
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+}
+.scores {
+	float: right;
+	display: flex;
+}
+.current-score {
+	@include fancy-border;
+	text-align: center;
+	&:after {
+		content: "SCORE";
+		position: absolute;
+		width: 100%;
+		top: 10px;
+		left: 0;
+		font-size: 13px;
+		line-height: 12px;
+		text-align: center;
+		color: $color_3;
+		font-weight: 500;
+	}
+}
+.best-score {
+	@include fancy-border;
+	margin-left: 5px;
+	text-align: center;
+	&:after {
+		content: "BEST";
+		position: absolute;
+		width: 100%;
+		top: 10px;
+		left: 0;
+		font-size: 13px;
+		line-height: 12px;
+		text-align: center;
+		color: $color_3;
+		font-weight: 500;
+	}
+}
+p {
+	display: block;
+	padding-top: 6px;
+	font-size: 18px;
+}
+.sub-heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 10px;
+}
+.box-game {
+	background-color: $background-color_1;
+	padding: 16px;
+	margin-top: 16px;
+	border-radius: 6px;
+}
+
+
+
+
