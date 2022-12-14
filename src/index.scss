@@ -39,6 +39,14 @@ h1 {
 	display: block;
 	float: left;
 }
+
+h2{
+	font-size: 40px;
+	font-weight: bold;
+	margin-left: 24px;
+	color: $color_2;
+}
+
 .container {
 	width: 500px;
 	margin: 0 auto;
