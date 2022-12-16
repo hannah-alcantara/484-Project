@@ -38,11 +38,14 @@ const ColorButton = styled(Button)(() => ({
 //   [0, 0, 0, 0],
 // ];
 
+//useState storing the board as a 2d array of 0s
 const [board, setBoard] = useState(Array.from({length: 4},()=> Array.from({length: 4}, () => 0)));
 
+//score and highScore
 const [score, setScore] = useState(0);
 const [highScore, setHighScore] = useState(0);
 
+//generates a random tile
 function generateRandom() {
   let row = Math.floor(Math.random() * 4);
   let col = Math.floor(Math.random() * 4);
@@ -52,6 +55,7 @@ function generateRandom() {
     temp[row][col] = 2;
     setBoard(temp);
   } else {
+    //if the random tile is taken, just fill the first open tile
     for(var i = 0; i < 4; i++) {
       for(var j = 0; j < 4; j++) {
         if(board[i][j] == 0) {
@@ -65,6 +69,7 @@ function generateRandom() {
   }
 }
 
+//checks if the game is won
 function gameWon() {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
@@ -76,6 +81,7 @@ function gameWon() {
   return false;
 }
 
+//checks if the game is lost
 function gameLost() {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
@@ -90,10 +96,10 @@ function gameLost() {
       }
     }
   }
-
   return true;
 }
 
+//moves the tiles down
 function moveDown() {
   for(let z = 0; z < 4; z++) {
   for (var i = 0; i < 3; i++) {
@@ -116,6 +122,7 @@ function moveDown() {
   }
 }
 
+//moves the tiles up
 function moveUp() {
   for(let z = 0; z < 4; z++) {
   for (var i = 3; i > 0; i--) {
@@ -138,6 +145,7 @@ function moveUp() {
   }
 }
 
+//move the tiles left
 function moveLeft() {
   for(let z = 0; z < 4; z++) {
   for (var i = 0; i < 4; i++) {
@@ -159,6 +167,8 @@ function moveLeft() {
   }
   }
 }
+
+//moves the tiles right
 function moveRight() {
   for(let z = 0; z < 4; z++) {
   for (var i = 0; i < 4; i++) {
@@ -181,6 +191,7 @@ function moveRight() {
   }
 }
 
+//keyboard detection
 const handleKeyDown = event => {
    switch (event.key) {
      case "ArrowLeft":
@@ -203,11 +214,13 @@ const handleKeyDown = event => {
   //console.log(event.key);
 };
 
+//handles the turn
 function turnHandler() {
+  //updates high score if needed
   let high = Math.max(tempScore, tempHighScore);
   setHighScore(high);
   tempHighScore = high;
-  //setHighScore(Math.max(score, highScore));
+  //checks if the game is over, otherwise continues
   if (gameWon()) {
     console.log("WON");
     changeWinScreen(true)
@@ -222,11 +235,14 @@ function turnHandler() {
   
   //updateVisuals();
 }
+
+//makes a new game
 const newGame = () => {
+  //resets score
   setScore(0);
   updateTempScore();
   let temp = [...board];
-
+  //replaces board with 0s
   for(var i = 0; i < 4; i++) {
     for(var j = 0; j < 4; j++) {
       if(temp[i][j] != 0) {
@@ -235,29 +251,35 @@ const newGame = () => {
     }
   }
   setBoard(temp);
+  //fills board with 2 random tiles
   generateRandom();
   generateRandom();
 
   //updateVisuals();
 }
 
+//updates the score
 function updateTempScore() {
   tempScore = 0;
 }
 
+//calls the newGame method on initial render, and adds event listener for button downs
 useEffect(() => {
   newGame();
   document.addEventListener('keydown', handleKeyDown);
 },[])
 
+//debugging useEffect
 useEffect(() => {
   console.log(board);
   console.log(tempScore)
 },[board])
 
+//win/lose screen booleans
 const [winScreen, changeWinScreen] = useState(false);
 const [loseScreen, changeLoseScreen] = useState(false);
 
+//handles close of the modals
 const handleClose = () => {
   changeWinScreen(false)
   changeLoseScreen(false)
@@ -283,7 +305,8 @@ const handleClose = () => {
         </div>
       {/* <p>Join the tiles, get to <b>2048!</b></p>
       <p>SCORE</p> */}
-
+    
+    {/*MUI Grid for the board*/}
     <div className='box-game'>
       <Grid container rowSpacing={2} columnSpacing={2}>
         <Grid item xs={3}>
@@ -346,6 +369,7 @@ const handleClose = () => {
       <div>
         <p><b>How to Play:</b> Use your arrow keys to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach <b>2048!</b></p>
       </div>
+      {/*Modals for the win/lose screen*/}
       <Modal aria-labelledby="modal-title" aria-describedby="modal-description" open = {winScreen} onClose={handleClose}>
         <h2 id="modal-title">You Won!</h2>
       </Modal>
