@@ -95,6 +95,7 @@ function gameLost() {
 }
 
 function moveDown() {
+  for(let z = 0; z < 4; z++) {
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 4; j++) {
       let temp = [...board];
@@ -111,10 +112,12 @@ function moveDown() {
         setBoard(temp);
       }
     }
+    }
   }
 }
 
 function moveUp() {
+  for(let z = 0; z < 4; z++) {
   for (var i = 3; i > 0; i--) {
     for (var j = 0; j < 4; j++) {
       let temp = [...board];
@@ -132,9 +135,11 @@ function moveUp() {
       }
     }
   }
+  }
 }
 
 function moveLeft() {
+  for(let z = 0; z < 4; z++) {
   for (var i = 0; i < 4; i++) {
     for (var j = 3; j > 0; j--) {
       let temp = [...board];
@@ -152,8 +157,10 @@ function moveLeft() {
       }
     }
   }
+  }
 }
 function moveRight() {
+  for(let z = 0; z < 4; z++) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 3; j++) {
       let temp = [...board];
@@ -170,6 +177,7 @@ function moveRight() {
         setBoard(temp);
       }
     }
+  }
   }
 }
 
